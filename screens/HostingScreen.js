@@ -4,7 +4,7 @@ import { Text, View, Image, TouchableOpacity, StatusBar,
 import {Header, Button, Input} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './styles';
-import {HeaderBar} from '/Users/Uluc/Desktop/Routinely/components/HeaderBar.js';
+import {HeaderBar} from './../components/HeaderBar.js';
 
 const DismissKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
