@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { Button } from 'react-native-elements';
 
-class CalendarScreen extends Component {
+class LibraryScreen extends Component {
   render() {
     return (
       <View style={styles.container}>

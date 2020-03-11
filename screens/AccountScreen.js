@@ -3,7 +3,7 @@ import { Text, View, StyleSheet } from "react-native";
 import { Button } from 'react-native-elements';
 import styles from './styles';
 
-class WorkoutScreen extends Component {
+class AccountScreen extends Component {
 
   render() {
     return (

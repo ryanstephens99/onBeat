@@ -12,7 +12,7 @@ const DismissKeyboard = ({ children }) => (
   </TouchableWithoutFeedback>
 );
 
-class TrainerScreen extends Component {
+class HostingScreen extends Component {
 
   render() {
     return (

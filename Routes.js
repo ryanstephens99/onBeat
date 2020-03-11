@@ -6,13 +6,10 @@ import {TabBar } from "/Users/Uluc/Desktop/Routinely/components";
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import HomeScreen from "./screens/HomeScreen";
-import TrainerScreen from "./screens/TrainerScreen";
-import WorkoutScreen from "./screens/WorkoutScreen";
+import HostingScreen from "./screens/HostingScreen";
+import AccountScreen from "./screens/AccountScreen";
 import SearchScreen from "./screens/SearchScreen";
-import CalendarScreen from "./screens/CalendarScreen";
-import WorkoutDBScreen from "./screens/WorkoutDBScreen";
-import ViewPlanScreen from "./screens/ViewPlansScreen";
-import AddWorkoutScreen from './screens/AddWorkoutScreen';
+import LibraryScreen from "./screens/LibraryScreen";
 import MakePlanScreen  from './screens/MakePlanScreen';
 
 
@@ -29,8 +26,8 @@ const BottomTab = createBottomTabNavigator({
             />
           }
        },
-    XXXX: {
-        screen: TrainerScreen,
+    Hosting: {
+        screen: HostingScreen,
         navigationOptions: {
             tabBarIcon : ({ tintColor }) => 
             <Icon
@@ -40,8 +37,8 @@ const BottomTab = createBottomTabNavigator({
             />
           }
     },
-       YYYYY:{
-         screen: WorkoutScreen,
+    Account:{
+         screen: AccountScreen,
          navigationOptions: {
             tabBarIcon : ({ tintColor }) => 
             <Icon
@@ -51,28 +48,28 @@ const BottomTab = createBottomTabNavigator({
             />
           }
        },
-       ZZZZZ:{
-           screen: SearchScreen,
-           navigationOptions: {
-            tabBarIcon : ({ tintColor }) => 
-            <Icon
-                name='search'
-                color = 'white'
-                size = {20}
-            />
-          }
-       },
-       Library:{
-           screen: CalendarScreen,
-           navigationOptions: {
-            tabBarIcon : ({ tintColor }) => 
-            <Icon
-                name='book'
-                color = 'white'
-                size = {20}
-            />
-          }
-       },
+    Search:{
+        screen: SearchScreen,
+        navigationOptions: {
+        tabBarIcon : ({ tintColor }) => 
+        <Icon
+            name='search'
+            color = 'white'
+            size = {20}
+        />
+        }
+    },
+    Library:{
+        screen: LibraryScreen,
+        navigationOptions: {
+        tabBarIcon : ({ tintColor }) => 
+        <Icon
+            name='book'
+            color = 'white'
+            size = {20}
+        />
+        }
+    },
         
     },
     {
@@ -94,16 +91,6 @@ const StackAppNavigator = createStackNavigator({
             tabBarVisible: true ,
             
         }
-    },
-    WorkoutDBScreen:{
-        screen :WorkoutDBScreen,
-        
-    },
-    ViewPlanScreen:{
-        screen :ViewPlanScreen
-    },
-    AddWorkoutScreen:{
-        screen :AddWorkoutScreen
     },
     MakePlanScreen:{
         screen : MakePlanScreen
