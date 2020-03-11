@@ -30,4 +30,4 @@ class AccountScreen extends Component {
   }
 }
 
-export default WorkoutScreen;
+// export default WorkoutScreen;

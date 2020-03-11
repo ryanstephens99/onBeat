@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { createStackNavigator} from 'react-navigation-stack';
 import  {createAppContainer } from 'react-navigation';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
-import {TabBar } from "/Users/Uluc/Desktop/Routinely/components";
+import {TabBar } from './components';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import HomeScreen from "./screens/HomeScreen";

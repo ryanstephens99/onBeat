@@ -3,9 +3,7 @@ import { Text, View, Image, TouchableOpacity, StatusBar, TouchableHighlight} fro
 import {Slider, Header} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './styles';
-import {HeaderBar} from '../components/HeaderBar.js';
-
-components / HeaderBar.js
+import {HeaderBar} from './../components/HeaderBar.js';
 
 class HomeScreen extends Component{
 
@@ -29,7 +27,7 @@ class HomeScreen extends Component{
                     />
                   </TouchableOpacity>
                   <Image 
-                      source={require('/Users/Uluc/Desktop/Routinely/Images/The_Weeknd_-_Starboy.png')}  
+                      source={require('./../Images/The_Weeknd_-_Starboy.png')}  
                       style= {styles.imageStyle}
                   />
                   <TouchableOpacity>
