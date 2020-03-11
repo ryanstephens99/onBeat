@@ -16,12 +16,11 @@ class SearchScreen extends Component {
             title = "Search"
           />   
           <Input
-          placeholder= 'Search'
-          inputContainerStyle = {styles.inputStyle}
-          labelStyle = {styles.textStyleLabel}
-          inputStyle = {styles.textStyleInput}
-          placeholderTextColor = '#fff'
-          leftIcon = {<Icon name = 'search'/>}
+          //placeholder= "Search"
+          //inputContainerStyle = {styles.inputStyle}
+          //labelStyle = {styles.textStyleLabel}
+          //inputStyle = {styles.textStyleInput}
+          //placeholderTextColor = '#fff'
           />
         />
         </View> 

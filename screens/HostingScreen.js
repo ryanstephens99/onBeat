@@ -53,4 +53,4 @@ class HostingScreen extends Component {
 }
 
 
-export default TrainerScreen;
+export default HostingScreen;
