@@ -3,9 +3,9 @@ import { Text, View, Image, TouchableOpacity, StatusBar, TouchableHighlight} fro
 import {Slider, Header} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './styles';
-import {HeaderBar} from '/Users/Uluc/Desktop/Routinely/components/HeaderBar.js';
+import {HeaderBar} from '../components/HeaderBar.js';
 
-
+components / HeaderBar.js
 
 class HomeScreen extends Component{
 
