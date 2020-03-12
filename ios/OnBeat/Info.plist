@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>Routinely</string>
+	<string>OnBeat</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -57,26 +57,26 @@
 		</dict>
 	</dict>
 	<key>NSCalendarsUsageDescription</key>
-	<string>Allow Routinely to access your calendar</string>
+	<string>Allow OnBeat to access your calendar</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Allow Routinely to use the camera</string>
+	<string>Allow OnBeat to use the camera</string>
 	<key>NSContactsUsageDescription</key>
-	<string>Allow Routinely experiences to access your contacts</string>
+	<string>Allow OnBeat experiences to access your contacts</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Allow Routinely to use your location</string>
+	<string>Allow OnBeat to use your location</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Allow Routinely to use your location</string>
+	<string>Allow OnBeat to use your location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Allow Routinely to use your location</string>
+	<string>Allow OnBeat to use your location</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Allow Routinely to access your microphone</string>
+	<string>Allow OnBeat to access your microphone</string>
 	<key>NSMotionUsageDescription</key>
-	<string>Allow Routinely to access your device's accelerometer</string>
+	<string>Allow OnBeat to access your device's accelerometer</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Give Routinely periences permission to save photos</string>
+	<string>Give OnBeat periences permission to save photos</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Give Routinely periences permission to access your photos</string>
+	<string>Give OnBeat periences permission to access your photos</string>
 	<key>NSRemindersUsageDescription</key>
-	<string>Allow Routinely to access your reminders</string>
+	<string>Allow OnBeat to access your reminders</string>
 </dict>
 </plist>
