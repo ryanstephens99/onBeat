@@ -13,8 +13,8 @@ web-report/
 # Environments
 .env
 .venv
-venv/
-env/
+venv/*
+env/*
 
 # macOS
 .DS_Store
