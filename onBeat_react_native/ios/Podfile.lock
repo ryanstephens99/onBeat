@@ -46,6 +46,9 @@ PODS:
     - boost-for-react-native
     - DoubleConversion
     - glog
+  - GCDWebServer (3.5.4):
+    - GCDWebServer/Core (= 3.5.4)
+  - GCDWebServer/Core (3.5.4)
   - glog (0.3.5)
   - RCTRequired (0.61.5)
   - RCTTypeSafety (0.61.5):
@@ -245,12 +248,22 @@ PODS:
     - React-cxxreact (= 0.61.5)
     - React-jsi (= 0.61.5)
     - ReactCommon/jscallinvoker (= 0.61.5)
-  - RNGestureHandler (1.5.2):
+  - RealmJS (5.0.0):
+    - GCDWebServer
     - React
-  - RNReanimated (1.4.0):
+  - RNDefaultPreference (1.4.2):
+    - React
+  - RNEventEmitter (1.0.15):
+    - React
+  - RNGestureHandler (1.6.1):
+    - React
+  - RNReanimated (1.7.1):
     - React
   - RNScreens (1.0.0-alpha.23):
     - React
+  - RNSpotify (1.2.13):
+    - React
+    - RNEventEmitter
   - UMBarCodeScannerInterface (5.0.0)
   - UMCameraInterface (5.0.0)
   - UMConstantsInterface (5.0.0)
@@ -307,9 +320,13 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - ReactCommon/jscallinvoker (from `../node_modules/react-native/ReactCommon`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
-  - RNGestureHandler (from `../node_modules/react-native-gesture-handler/RNGestureHandler.podspec`)
-  - RNReanimated (from `../node_modules/react-native-reanimated/RNReanimated.podspec`)
+  - RealmJS (from `../node_modules/realm`)
+  - RNDefaultPreference (from `../node_modules/react-native-default-preference`)
+  - RNEventEmitter (from `../node_modules/react-native-events`)
+  - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - RNSpotify (from `../node_modules/rn-spotify-sdk`)
   - UMBarCodeScannerInterface (from `../node_modules/unimodules-barcode-scanner-interface/ios`)
   - UMCameraInterface (from `../node_modules/unimodules-camera-interface/ios`)
   - UMConstantsInterface (from `../node_modules/unimodules-constants-interface/ios`)
@@ -327,6 +344,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - boost-for-react-native
+    - GCDWebServer
 
 EXTERNAL SOURCES:
   DoubleConversion:
@@ -410,12 +428,20 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/Libraries/Vibration"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RealmJS:
+    :path: "../node_modules/realm"
+  RNDefaultPreference:
+    :path: "../node_modules/react-native-default-preference"
+  RNEventEmitter:
+    :path: "../node_modules/react-native-events"
   RNGestureHandler:
-    :podspec: "../node_modules/react-native-gesture-handler/RNGestureHandler.podspec"
+    :path: "../node_modules/react-native-gesture-handler"
   RNReanimated:
-    :podspec: "../node_modules/react-native-reanimated/RNReanimated.podspec"
+    :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  RNSpotify:
+    :path: "../node_modules/rn-spotify-sdk"
   UMBarCodeScannerInterface:
     :path: !ruby/object:Pathname
     path: "../node_modules/unimodules-barcode-scanner-interface/ios"
@@ -472,6 +498,7 @@ SPEC CHECKSUMS:
   FBLazyVector: aaeaf388755e4f29cd74acbc9e3b8da6d807c37f
   FBReactNativeSpec: 118d0d177724c2d67f08a59136eb29ef5943ec75
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
+  GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
   RCTRequired: b153add4da6e7dbc44aebf93f3cf4fcae392ddf1
   RCTTypeSafety: 9aa1b91d7f9310fc6eadc3cf95126ffe818af320
@@ -492,9 +519,13 @@ SPEC CHECKSUMS:
   React-RCTText: 9ccc88273e9a3aacff5094d2175a605efa854dbe
   React-RCTVibration: a49a1f42bf8f5acf1c3e297097517c6b3af377ad
   ReactCommon: 198c7c8d3591f975e5431bec1b0b3b581aa1c5dd
-  RNGestureHandler: 946a7691e41df61e2c4b1884deab41a4cdc3afff
-  RNReanimated: b2ab0b693dddd2339bd2f300e770f6302d2e960c
+  RealmJS: d1ff3399d09f061f17520c47c20db1aac1a8f0d0
+  RNDefaultPreference: 56a405ce61033ac77b95004dccd7ac54c2eb50d1
+  RNEventEmitter: a43a853a0de1dee334d007a4b3d2a6dc29c77270
+  RNGestureHandler: 8f09cd560f8d533eb36da5a6c5a843af9f056b38
+  RNReanimated: 4e102df74a9674fa943e05f97f3362b6e44d0b48
   RNScreens: f28b48b8345f2f5f39ed6195518291515032a788
+  RNSpotify: db833fc2befb85748faf82fc768d383a104bc677
   UMBarCodeScannerInterface: 550e7ffd7a789289260bde3d547be29407e75437
   UMCameraInterface: 51e4568d64e77615557afaad9a3acdaad5d32d9f
   UMConstantsInterface: 23d658b73efc2b8090519b32007c3de725339492
@@ -509,6 +540,6 @@ SPEC CHECKSUMS:
   UMTaskManagerInterface: ee5b1ee1056eb338ff2d521ba79460d8cd0bae7d
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
-PODFILE CHECKSUM: 9834a96fbb7494d63a15346a0ad45c5267d6e51f
+PODFILE CHECKSUM: e1449ffe09dfac852d52e7b08182f75f5f3b86c7
 
 COCOAPODS: 1.8.4

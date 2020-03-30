@@ -43,4 +43,10 @@ target 'OnBeat' do
 
   # react-native-cli autolinking
   use_native_modules!
+  pod 'RealmJS', :path => '../node_modules/realm'
+
+  pod 'RNEventEmitter', :path => '../node_modules/react-native-events'
+
+  pod 'RNSpotify', :path => '../node_modules/rn-spotify-sdk'
+
 end

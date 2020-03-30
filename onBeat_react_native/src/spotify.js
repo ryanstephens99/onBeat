@@ -2,13 +2,13 @@ import Spotify from 'rn-spotify-sdk';
 import axios from "axios"
 import { uniqBy } from 'lodash'
 import DefaultPreference from 'react-native-default-preference';
-import { IP } from './../config'
+// import { IP } from './../config'
 import BasePlatformAPI from './basePlatform'
 // import TrackPlayer from 'react-native-track-player';
-import TrackPlayer from './TrackPlayer'
+// import TrackPlayer from './TrackPlayer'
 
 
-
+const IP = '127.0.0.1:8000';
 export default class SpotifyAPI extends BasePlatformAPI {
 
   constructor() {
@@ -115,8 +115,8 @@ export default class SpotifyAPI extends BasePlatformAPI {
         "tokenSwapURL": IP+'account/spotify-authentication/',
         "tokenRefreshURL": IP+'account/spotify-refresh/',
         "tokenRefreshEarliness": 300,
-        "sessionUserDefaultsKey": "RevibeSpotifySession"+await DefaultPreference.get('user_id'),
-        "revibeToken": this.getToken("Revibe").accessToken, //pull Revibe accessToken from realm
+        "sessionUserDefaultsKey": "OnBeatSpotifySession"+await DefaultPreference.get('user_id'),
+        "onBeatToken": this.getToken("OnBeat").accessToken, //pull OnBeat accessToken from realm
         "audioSessionCategory": "AVAudioSessionCategoryPlayback"
       };
       try {
@@ -267,7 +267,7 @@ export default class SpotifyAPI extends BasePlatformAPI {
           'user-library-modify',
           'user-top-read'
         ],
-        tokenRefreshURL: IP+'account/spotify-refresh/?authToken='+this.getToken("Revibe").accessToken,
+        tokenRefreshURL: IP+'account/spotify-refresh/?authToken='+this.getToken("OnBeat").accessToken,
       }
       await this._execute(Spotify.loginWithSession, [session])
     }

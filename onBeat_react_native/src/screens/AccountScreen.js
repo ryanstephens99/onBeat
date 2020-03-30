@@ -2,15 +2,21 @@ import React, { Component } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { Button } from 'react-native-elements';
 import styles from './styles';
+import SpotifyAPI from './../spotify';
 
 class AccountScreen extends Component {
+
+  constructor(props) {
+    super(props)
+    this.spotify = new SpotifyAPI()
+  }
 
   render() {
     return (
       <View style={styles.container}>
         <Button 
             title= "Make Plan"
-            onPress={() => this.props.navigation.navigate('MakePlanScreen')}
+            onPress={async () => await this.spotify.login()}
         />
         <Button 
             title= "View Plans"
