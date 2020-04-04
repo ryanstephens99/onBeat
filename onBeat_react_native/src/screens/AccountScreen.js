@@ -15,7 +15,7 @@ class AccountScreen extends Component {
     return (
       <View style={styles.container}>
         <Button 
-            title= "Make Plan"
+            title= "Connect to Spotify"
             onPress={async () => await this.spotify.login()}
         />
         <Button 
