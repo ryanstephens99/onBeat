@@ -24,7 +24,7 @@ export default class Player extends Component {
                 />
                 <View style = {styles.container}>
                     <Image 
-                        source={require('/Users/Uluc/Desktop/OnBeat/Images/The_Weeknd_-_Starboy.png')}  
+                        source={require('./Images/The_Weeknd_-_Starboy.png')}  
                         style= {styles.imageStyle}
                     />
                     <Text style = {styles.textStyleSong}>
