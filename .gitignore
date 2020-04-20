@@ -13,7 +13,8 @@ web-report/
 # Environments
 .env
 .venv
-venv/*
+onBeat_Django/venv
+# venv/*
 env/*
 
 # macOS
