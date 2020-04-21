@@ -14,7 +14,10 @@ web-report/
 .env
 .venv
 onBeat_Django/venv
+onBeat_Django/onbeat
 onBeat_Django1/venv
+onBeat_Django1/onbeat
+
 
 # venv/*
 env/*
