@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+SITE_ID=1
 
 # Application definition
 
@@ -42,7 +43,6 @@ INSTALLED_APPS = [
     # my apps
     'onBeat_Django',
     'accounts',
-    'content',
 
     #installed apps
     'rest_framework',
