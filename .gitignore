@@ -10,6 +10,16 @@ npm-debug.*
 web-build/
 web-report/
 
+*.icloud
+
+#Django
+*.log
+*.pot
+*.pyc
+*.cpython-37.pyc
+__pycache__/
+onBeat_Django/accounts/__pycache__/
+
 # Environments
 .env
 .venv
@@ -83,3 +93,5 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
+
+
