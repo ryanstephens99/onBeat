@@ -1,23 +1,42 @@
-import React, { Component } from "react";
-import { Text, View, StyleSheet } from "react-native";
-import { Button } from 'react-native-elements';
+import React, { Component } from 'react';
+import { Text, View, Image, TouchableOpacity, StatusBar, TouchableHighlight } from 'react-native';
+import { Slider, Header } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import styles from './styles';
+import { HeaderBar } from './../components/HeaderBar.js';
+import { LibraryRowItem } from '../components/LibraryRowItem.js';
 
 class LibraryScreen extends Component {
+
   render() {
     return (
       <View style={styles.container}>
-        <Text>This is the Calendar Page</Text>
+
+        <View style={styles.headerStyle}>
+          <HeaderBar
+            title="Library"
+          />
+          <LibraryRowItem
+            title = "Starboy"
+            artist="the Weekend"
+          />
+
+          <LibraryRowItem
+            title="Hell"
+            artist="Yes"
+          />
+          <LibraryRowItem
+            title="Hell"
+            artist="Yes"
+          />
+          <LibraryRowItem
+            title="Hell"
+            artist="Yes"
+          />
+        </View>
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: "center"
-      
-    }
-});
 
 export default LibraryScreen;

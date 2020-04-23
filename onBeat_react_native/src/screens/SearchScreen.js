@@ -14,14 +14,20 @@ class SearchScreen extends Component {
         <View style = {styles.headerStyle}>      
           <HeaderBar
             title = "Search"
-          />   
+          />  
           <Input
-          //placeholder= "Search"
-          //inputContainerStyle = {styles.inputStyle}
-          //labelStyle = {styles.textStyleLabel}
-          //inputStyle = {styles.textStyleInput}
-          //placeholderTextColor = '#fff'
-          />
+          placeholder= "  Search"
+          leftIcon={
+            <Icon
+              name='search'
+              size={12}
+              color='white'
+            />
+          }
+          inputContainerStyle = {styles.inputStyle}
+          labelStyle = {styles.textStyleLabel}
+          inputStyle = {styles.textStyleInput}
+          placeholderTextColor = '#fff'
         />
         </View> 
         

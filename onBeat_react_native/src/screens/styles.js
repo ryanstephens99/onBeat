@@ -14,6 +14,14 @@ const styles = StyleSheet.create({
     backgroundColor: backgroundColorBase
     
   },
+  libraryContainer:{
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignContent: 'center',
+    marginLeft: 10,
+    backgroundColor: backgroundColorBase
+  },
   containerSearchPage: {
     flex: 1,
     flexDirection: 'column',
@@ -28,6 +36,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'flex-start',
     backgroundColor: backgroundColorBase
+    
+  },
+  libraryContainerRow: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: backgroundColorBase,
+    borderBottomWidth: 1,
+    borderBottomColor: 'darkgrey',
+    width: 425,
     
   },
 
@@ -54,6 +73,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
   },
   inputStyle:{
+    paddingTop : 20,
     marginLeft : 0, 
     marginHorizontal: 0,
     
@@ -81,6 +101,14 @@ const styles = StyleSheet.create({
     width : 310,
     height : 310,
   },
+  libraryImageStyle: {
+    marginTop: 20,
+    marginHorizontal: 0,
+    marginBottom: 5,
+    marginLeft : 15,
+    width: 50,
+    height: 50,
+  },
   textStyleHeader:{
     fontWeight: 'bold',
     color: textColor,
@@ -102,12 +130,25 @@ const styles = StyleSheet.create({
     fontFamily: appFont,
     fontSize: 25, 
   },
+  textStyleLibrarySong: {
+    color: textColor,
+    fontFamily: appFont,
+    fontSize: 20,
+  },
   textStyleArtist:{
     color: textColor,
     opacity: .3,
     fontFamily: appFont,
     fontSize: 13,
     margin: 10,
+  },
+  textStyleLibraryArtist: {
+    color: textColor,
+    opacity: .3,
+    fontFamily: appFont,
+    fontSize: 13,
+    marginTop: 3,
+    marginBottom : 3,
   },
   textStyleInput:{
     color: textColor,
@@ -128,6 +169,9 @@ const styles = StyleSheet.create({
   },
   iconPlayer:{
     marginHorizontal: 50
+  },
+  iconLibrary: {
+    marginRight: 25
   },
   centerPageAlignment:{
     justifyContent: "center",

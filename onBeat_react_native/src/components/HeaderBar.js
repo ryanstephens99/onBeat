@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import { Text, View, Image, TouchableOpacity, TouchableHighlight, StatusBar} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import styles from './../screens/styles';
+
 import {Header} from 'react-native-elements';
 
 
@@ -18,15 +21,20 @@ export const HeaderBar = props => {
             fontFamily:'GillSans-SemiBold',
             fontSize: 19 }}}
 
-        // <TouchableOpacity>
-        //     <Icon
-        //         name='pause'
-        //         size={18}
-        //         color='gray'
-        //         style={styles.iconPlayer}
-        //     />
-        // </TouchableOpacity>
-        rightComponent={{ icon: 'menu', color: '#fff' }}
+
+        rightComponent={{
+                icon: 'menu',
+                color: '#fff',
+            // < TouchableOpacity >
+
+                // <Icon
+                //     name='pause'
+                //     size={18}
+                //     color='gray'
+                //     style={styles.iconPlayer}
+                // />
+            // </TouchableOpacity >
+        }}
         leftComponent={{ 
             // <View>
             // </View>
@@ -36,6 +44,7 @@ export const HeaderBar = props => {
             //     color='gray'
             //     style={styles.iconPlayer}
             // />
+            
             icon: 'person',
             color: '#fff',
             // onPress={() => this.props.navigation.navigate('WorkoutDBScreen')},

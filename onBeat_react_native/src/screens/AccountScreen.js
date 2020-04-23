@@ -4,6 +4,7 @@ import { Button } from 'react-native-elements';
 import styles from './styles';
 import SpotifyAPI from '../api/spotify';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { HeaderBar } from './../components/HeaderBar.js';
 
 class AccountScreen extends Component {
 
@@ -15,24 +16,27 @@ class AccountScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Button 
-            title= "Connect to Spotify"
-            onPress={async () => await this.spotify.login()}
-        />
-        <Button 
-            title= "Sign Up"
-            onPress={() => this.props.navigation.navigate('SignUp')}
-        />
-        <Button 
-            title= "Workouts"
-            onPress={() => this.props.navigation.navigate('WorkoutDBScreen')}
-            
-        />
-        <Button 
-            title= "1 Rep Calculator"
-            
-        />
+        <View style={styles.headerStyle}>
+          <HeaderBar
+            title="Account"
+          />
+          <View  style = {styles.centerPageAlignment}>
+            <Button 
+                buttonStyle = {styles.buttonStyle}
+                titleStyle = {styles.buttonTitleStyle}
+                title= "Connect to Spotify"
+                onPress={async () => await this.spotify.login()}
+            />
+            <Button 
+                buttonStyle={styles.buttonStyle}
+                titleStyle={styles.buttonTitleStyle}
+                title= "Sign Up"
+                onPress={() => this.props.navigation.navigate('SignUp')}
+            />
+          </View>
+        </View>
       </View>
+
     );
   }
 }

@@ -80,7 +80,6 @@ export default class OnBeatAPI extends BasePlatformAPI {
             try {
                 request.url = `http://127.0.0.1:3380/${endpoint}`
                 response = await axios(request)
-                console.log("YEEEEE")
                 break
             }
             catch (error) {
@@ -137,31 +136,32 @@ export default class OnBeatAPI extends BasePlatformAPI {
         return response.data
     }
 
-    async login(username, password) {
-        /**
-        * Summary: Login to Revibe account (required implementation).
-        *
-        * @see  BasePlatformAPI
-        *
-        * @param {string}   username    username associated with an account
-        * @param {string}   password    password associated with an account
-        *
-        * @return {Object} Revibe user object, access token, and refresh token
-        */
+    // async login(username, password) {
+    //     /**
+    //     * Summary: Login to Revibe account (required implementation).
+    //     *
+    //     * @see  BasePlatformAPI
+    //     *
+    //     * @param {string}   username    username associated with an account
+    //     * @param {string}   password    password associated with an account
+    //     *
+    //     * @return {Object} Revibe user object, access token, and refresh token
+    //     */
 
-        var data = {
-            username: username,
-            password: password,
-        }
-        var response = await this._request("account/auth/login/", "POST", data)
-        if (response.data.hasOwnProperty("key")) {
-            var token = response.data.key,
-            // save token to realm
-            this.saveToken(token)
-            return response.data.user
-        }
-        return response.data
-    }
+    //     var data = {
+    //         username: username,
+    //         password: password,
+    //     }
+    //     var response = await this._request("account/rest-auth/login/", "POST", data)
+    //     if (response.data.hasOwnProperty("key")) {
+    //         var token = response.data.key,
+    //         // save token to realm
+    //         this.saveToken(token)
+
+    //         return response.data.user
+    //     }
+    //     return response.data
+    // }
 
     async logout() {
         /**
