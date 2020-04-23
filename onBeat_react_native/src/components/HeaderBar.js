@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, StatusBar} from 'react-native';
+import { Text, View, Image, TouchableOpacity, TouchableHighlight, StatusBar} from 'react-native';
 import {Header} from 'react-native-elements';
 
 
@@ -17,8 +17,29 @@ export const HeaderBar = props => {
             justifyContent: 'center',
             fontFamily:'GillSans-SemiBold',
             fontSize: 19 }}}
+
+        // <TouchableOpacity>
+        //     <Icon
+        //         name='pause'
+        //         size={18}
+        //         color='gray'
+        //         style={styles.iconPlayer}
+        //     />
+        // </TouchableOpacity>
         rightComponent={{ icon: 'menu', color: '#fff' }}
-        leftComponent={{ icon: 'person', color: '#fff' }}
+        leftComponent={{ 
+            // <View>
+            // </View>
+            // < Icon
+            //     name='pause'
+            //     size={18}
+            //     color='gray'
+            //     style={styles.iconPlayer}
+            // />
+            icon: 'person',
+            color: '#fff',
+            // onPress={() => this.props.navigation.navigate('WorkoutDBScreen')},
+         }}
         barStyle = 'light-content'
     /> 
     );

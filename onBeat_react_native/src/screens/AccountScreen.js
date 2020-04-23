@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { Button } from 'react-native-elements';
 import styles from './styles';
-import SpotifyAPI from './../spotify';
+import SpotifyAPI from '../api/spotify';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
 
 class AccountScreen extends Component {
 
@@ -19,8 +20,8 @@ class AccountScreen extends Component {
             onPress={async () => await this.spotify.login()}
         />
         <Button 
-            title= "View Plans"
-            onPress={() => this.props.navigation.navigate('ViewPlanScreen')}
+            title= "Sign Up"
+            onPress={() => this.props.navigation.navigate('SignUp')}
         />
         <Button 
             title= "Workouts"

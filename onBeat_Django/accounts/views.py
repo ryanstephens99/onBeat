@@ -40,10 +40,6 @@ class SpotifyConnect(SocialConnectView):
 
 class SpotifyRefresh(generics.GenericAPIView):
     permission_classes = (TokenOrSessionAuthentication)
-    required_alternate_scopes = {
-        'GET': [['ADMIN'], ['first-party']],
-        'POST': [['ADMIN'], ['first-party']]
-    }
     serializer_class = RefreshTokenSerializer
 
     def post(self, request, *args, **kwargs):
@@ -73,10 +69,6 @@ class SpotifyRefresh(generics.GenericAPIView):
 
 class SpotifyLogout(generics.GenericAPIView):
     permission_classes = (TokenOrSessionAuthentication)
-    required_alternate_scopes = {
-        'GET': [['ADMIN'], ['first-party']],
-        'POST': [['ADMIN'], ['first-party']]
-    }
 
     def post(self, request, *args, **kwargs):
         if SocialAccount.objects.filter(user=request.user, provider="spotify").exists():

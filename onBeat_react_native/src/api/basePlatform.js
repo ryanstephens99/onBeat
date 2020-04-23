@@ -1,12 +1,13 @@
-import realm from './realm/realm';
-import Token from './realm/v1/models/Token'
-import Song from './realm/v1/models/Song'
-import Album from './realm/v1/models/Album'
-import Artist from './realm/v1/models/Artist'
-import Playlist from './realm/v1/models/Playlist'
-import SavedSong from './realm/v1/models/SavedSong'
-import Contributor from './realm/v1/models/Contributor'
-import Image from './realm/v1/models/Image'
+import realm from './../realm/realm';
+import AsyncStorage from '@react-native-community/async-storage';
+import Token from './../realm/v1/models/Token'
+import Song from './../realm/v1/models/Song'
+import Album from './../realm/v1/models/Album'
+import Artist from './../realm/v1/models/Artist'
+import Playlist from './../realm/v1/models/Playlist'
+import SavedSong from './../realm/v1/models/SavedSong'
+import Contributor from './../realm/v1/models/Contributor'
+import Image from './../realm/v1/models/Image'
 import _ from "lodash";
 
 
@@ -16,19 +17,19 @@ export default class BasePlatformAPI {
   ///////////////// GENERAL AUTHENTICATION OPERATIONS //////////////////
   //////////////////////////////////////////////////////////////////////
 
-  hasLoggedIn() {
+  async hasLoggedIn() {
     //  see if user has ever logged in by seeing if platform token are in realm
-    return !!this.getToken();
+    return !!(await this.getToken())
   }
 
-  isLoggedIn(platform=this.name) {
+  async isLoggedIn(platform=this.name) {
     //  check if token expire time is greater than current time, if so token is logged in
-    return this.getToken(platform).expiration > Math.round((new Date()).getTime() / 1000);
+    return await this.getToken(platform).expiration > Math.round((new Date()).getTime() / 1000);
   }
 
-  getToken(platform=this.name) {
+  async getToken(platform=this.name) {
     //  return token object for platform
-    return realm.objects('Token').filtered(`platform = "${platform}"`)["0"];
+    return await AsyncStorage.getItem('token')
   }
 
   _generateExpiration(hoursAhead) {
@@ -38,10 +39,9 @@ export default class BasePlatformAPI {
     return expiration
   }
 
-  saveToken(token) {
+  async saveToken(token) {
     // save token to realm
-    var tokens = new Token()
-    tokens.create(token)
+    await AsyncStorage.setItem('token', token)
   }
 
 

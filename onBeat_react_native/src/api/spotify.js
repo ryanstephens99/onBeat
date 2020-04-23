@@ -2,10 +2,7 @@ import Spotify from 'rn-spotify-sdk';
 import axios from "axios"
 import { uniqBy } from 'lodash'
 import DefaultPreference from 'react-native-default-preference';
-// import { IP } from './../config'
 import BasePlatformAPI from './basePlatform'
-// import TrackPlayer from 'react-native-track-player';
-// import TrackPlayer from './TrackPlayer'
 
 
 const IP = '127.0.0.1:8000';

@@ -251,6 +251,8 @@ PODS:
   - RealmJS (5.0.0):
     - GCDWebServer
     - React
+  - RNCAsyncStorage (1.9.0):
+    - React
   - RNDefaultPreference (1.4.2):
     - React
   - RNEventEmitter (1.0.15):
@@ -321,6 +323,7 @@ DEPENDENCIES:
   - ReactCommon/jscallinvoker (from `../node_modules/react-native/ReactCommon`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - RealmJS (from `../node_modules/realm`)
+  - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
   - RNDefaultPreference (from `../node_modules/react-native-default-preference`)
   - RNEventEmitter (from `../node_modules/react-native-events`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
@@ -430,6 +433,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   RealmJS:
     :path: "../node_modules/realm"
+  RNCAsyncStorage:
+    :path: "../node_modules/@react-native-community/async-storage"
   RNDefaultPreference:
     :path: "../node_modules/react-native-default-preference"
   RNEventEmitter:
@@ -520,6 +525,7 @@ SPEC CHECKSUMS:
   React-RCTVibration: a49a1f42bf8f5acf1c3e297097517c6b3af377ad
   ReactCommon: 198c7c8d3591f975e5431bec1b0b3b581aa1c5dd
   RealmJS: d1ff3399d09f061f17520c47c20db1aac1a8f0d0
+  RNCAsyncStorage: b16697280b08bab4b5f2f67f752d93d13a52e9ed
   RNDefaultPreference: 56a405ce61033ac77b95004dccd7ac54c2eb50d1
   RNEventEmitter: a43a853a0de1dee334d007a4b3d2a6dc29c77270
   RNGestureHandler: 8f09cd560f8d533eb36da5a6c5a843af9f056b38
@@ -540,6 +546,6 @@ SPEC CHECKSUMS:
   UMTaskManagerInterface: ee5b1ee1056eb338ff2d521ba79460d8cd0bae7d
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
-PODFILE CHECKSUM: e1449ffe09dfac852d52e7b08182f75f5f3b86c7
+PODFILE CHECKSUM: adb0bd5d3621a833fde34cf9c3c88a2b06b3e22f
 
 COCOAPODS: 1.8.4

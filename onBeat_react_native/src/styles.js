@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
   inputStyle:{
     marginBottom : 15,
     marginLeft : 0,
+    // flex: 1
   },
   iconStyle:{
     marginRight : 10

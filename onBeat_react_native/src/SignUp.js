@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, KeyboardAvoidingView, Keyboard,  TouchableWithoutFeedback} from 'react-native';
+import { StyleSheet, Text, View, KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback, TextInput} from 'react-native';
 import {Button, Input, Header} from 'react-native-elements';
+import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './styles';
+import axios from 'axios';
+import OnBeatAPI from './api/onbeat.js';
 
 const DismissKeyboard = ({ children }) => (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -10,7 +13,33 @@ const DismissKeyboard = ({ children }) => (
     </TouchableWithoutFeedback>
 );
 
-export default class Signup extends Component {
+class SignUp extends Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            username: 'ryan14',
+            password: 'Reed1rile2',
+            email: 'ryan14@gmail.com'
+        }
+    }
+    
+    onUsernameChange(text){
+        this.setState({ username : text });
+    }
+    onPasswordChange(text){
+        this.setState({ password : text });
+    }
+    onEmailChange(text){
+        this.setState({ email : text });
+    }
+    handleRequest = async () => {
+        var api = new OnBeatAPI()
+        var response = await api.register(this.state.username, this.state.email, this.state.password)
+        console.log(response);
+        
+    }
+
     render() {
         return (
         <DismissKeyboard>
@@ -30,8 +59,23 @@ export default class Signup extends Component {
                     }
                     leftIconContainerStyle = { styles.iconStyle}
                     label = 'Email Address'
-                    placeholder = 'example@onbeat.com' 
+                    placeholder = 'example@onbeat.com'
+                    onChangeText={this.onEmailChange.bind(this)} 
                     containerStyle = {styles.inputStyle}
+                />
+                <Input style={styles.buttonStyle}
+                    leftIcon={
+                        <Icon
+                            name='user'
+                            size={20}
+                            color='gray'
+                        />
+                    }
+                    leftIconContainerStyle={styles.iconStyle}
+                    label='Username'
+                    placeholder='username'
+                    onChangeText={this.onUsernameChange.bind(this)}
+                    containerStyle={styles.inputStyle}
                 />
                 <Input style = {styles.buttonStyle}
                     leftIcon={ 
@@ -44,10 +88,12 @@ export default class Signup extends Component {
                     leftIconContainerStyle = { styles.iconStyle}
                     label = 'Password'
                     placeholder = 'password' 
+                    onChangeText={this.onPasswordChange.bind(this)}
                     containerStyle = {styles.inputStyle}
                 />
                 <Button style = {styles.buttonStyle}
-                    title = 'Login'
+                    title = 'Sign up'
+                    onPress={this.handleRequest}
                 />
                 
                 <Text style={styles.hyperlinkText} >Forgot Your Password?</Text>
@@ -59,3 +105,4 @@ export default class Signup extends Component {
     }
 
 }
+export default SignUp
