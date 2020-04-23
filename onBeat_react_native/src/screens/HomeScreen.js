@@ -4,6 +4,7 @@ import {Slider, Header} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './styles';
 import {HeaderBar} from './../components/HeaderBar.js';
+import {PlayerView} from './../components/PlayerView.js';
 
 class HomeScreen extends Component{
 
@@ -15,46 +16,16 @@ class HomeScreen extends Component{
           <HeaderBar
             title = "Music"
           />
-              <View style = {styles.containerRow}>
-                  
-                  <TouchableOpacity>
-                    <Icon
-                      name='heart'
-                      size={20}
-                      color = 'gray'
-                      style = {styles.iconStyleListening}
-                      
-                    />
-                  </TouchableOpacity>
-                  <Image 
-                      source={require('./../Images/The_Weeknd_-_Starboy.png')}  
-                      style= {styles.imageStyle}
-                  />
-                  <TouchableOpacity>
-                    <Icon
-                      name= 'folder'
-                      size={20}
-                      color = 'gray'
-                      style = {styles.iconStyleListening}
-                      
-                    />
-                  </TouchableOpacity>
-              
-              </View>
-              <View style = {styles.container}>
-                  <Text style = {styles.textStyleSong}>
-                      Starboy
-                  </Text>
-                  <Text style = {styles.textStyleArtist}>
-                      The Weekend
-                  </Text>
-              </View>
-              <View style={{ flex: 1, alignItems: 'stretch', justifyContent: 'center', paddingHorizontal: 50 }}>
-                  <Slider
-                      thumbTintColor = 'darkslateblue'
-                  />
-              </View>
-              
+
+            <PlayerView
+                title = 'Starboy'
+                artist = 'The Weeknd'
+            />
+            <View style={{ flex: 1, alignItems: 'stretch', justifyContent: 'center', paddingHorizontal: 50 }}>
+                <Slider
+                    thumbTintColor='darkslateblue'
+                />
+            </View>
               <View style = {styles.playerOptionsContainer}>
                   <TouchableOpacity>
                       <Icon

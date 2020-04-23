@@ -10,7 +10,6 @@ import HostingScreen from "./screens/HostingScreen";
 import AccountScreen from "./screens/AccountScreen";
 import SearchScreen from "./screens/SearchScreen";
 import LibraryScreen from "./screens/LibraryScreen";
-import MakePlanScreen  from './screens/MakePlanScreen';
 import SignUp from './SignUp.js'
 // import Signup from "./SignUp.js";
 
@@ -22,7 +21,7 @@ const BottomTab = createBottomTabNavigator({
         navigationOptions: {
             tabBarIcon : ({ tintColor }) => 
             <Icon
-                name='home'
+                name='pause'
                 color = 'white'
                 size = {20}
             />
@@ -44,7 +43,7 @@ const BottomTab = createBottomTabNavigator({
          navigationOptions: {
             tabBarIcon : ({ tintColor }) => 
             <Icon
-                name='pause'
+                name='home'
                 color = 'white'
                 size = {20}
             />
@@ -93,9 +92,6 @@ const StackAppNavigator = createStackNavigator({
             tabBarVisible: true ,
             
         }
-    },
-    MakePlanScreen:{
-        screen : MakePlanScreen
     },
     SignUp: {
         screen : SignUp,
