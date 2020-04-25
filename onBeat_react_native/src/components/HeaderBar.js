@@ -14,7 +14,7 @@ export const HeaderBar = props => {
     return (
 
     <Header
-        backgroundColor = '#2d2658'
+        backgroundColor = '#778FA8'
         centerComponent={{ text: props.title,style: { 
             color: '#fff', 
             justifyContent: 'center',
@@ -25,29 +25,10 @@ export const HeaderBar = props => {
         rightComponent={{
                 icon: 'menu',
                 color: '#fff',
-            // < TouchableOpacity >
-
-                // <Icon
-                //     name='pause'
-                //     size={18}
-                //     color='gray'
-                //     style={styles.iconPlayer}
-                // />
-            // </TouchableOpacity >
         }}
         leftComponent={{ 
-            // <View>
-            // </View>
-            // < Icon
-            //     name='pause'
-            //     size={18}
-            //     color='gray'
-            //     style={styles.iconPlayer}
-            // />
-            
             icon: 'person',
             color: '#fff',
-            // onPress={() => this.props.navigation.navigate('WorkoutDBScreen')},
          }}
         barStyle = 'light-content'
     /> 

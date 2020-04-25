@@ -36,6 +36,7 @@ class SignUp extends Component {
     handleRequest = async () => {
         var api = new OnBeatAPI()
         var response = await api.register(this.state.username, this.state.email, this.state.password)
+        this.props.navigation.goBack();
         console.log(response);
         
     }

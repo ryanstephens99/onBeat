@@ -1,10 +1,15 @@
+from django.conf import settings
 from django.shortcuts import render
 from rest_framework import viewsets, permissions, generics, status
 from rest_auth.registration.views import SocialConnectView
 from allauth.socialaccount.providers.spotify.views import SpotifyOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from allauth.socialaccount.models import SocialAccount, SocialToken, SocialApp
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
+from accounts.adapter import TokenAuthSupportQueryString
+# from accounts.serializers import RefreshTokenSerializer
 import datetime
 import json
 import requests
@@ -39,8 +44,8 @@ class SpotifyConnect(SocialConnectView):
 
 
 class SpotifyRefresh(generics.GenericAPIView):
-    permission_classes = (TokenOrSessionAuthentication)
-    serializer_class = RefreshTokenSerializer
+    permission_classes = (IsAuthenticated)
+    # serializer_class = RefreshTokenSerializer
 
     def post(self, request, *args, **kwargs):
         # should spotify refresh token be verified against user?
@@ -68,7 +73,7 @@ class SpotifyRefresh(generics.GenericAPIView):
 
 
 class SpotifyLogout(generics.GenericAPIView):
-    permission_classes = (TokenOrSessionAuthentication)
+    permission_classes = (IsAuthenticated)
 
     def post(self, request, *args, **kwargs):
         if SocialAccount.objects.filter(user=request.user, provider="spotify").exists():
@@ -78,3 +83,10 @@ class SpotifyLogout(generics.GenericAPIView):
             return Response({'message': 'Spotify logout successful.'}, status=status.HTTP_200_OK)
         # should probably return current tokens
         return Response({"error": "User has not logged into Spotify."}, status=status.HTTP_400_BAD_REQUEST)
+
+
+# class OnBeatProfile(generics.ListAPIView):
+#     serializer_class = UserSerializer
+
+#     def list()
+

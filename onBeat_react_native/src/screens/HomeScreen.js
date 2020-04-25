@@ -5,9 +5,14 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './styles';
 import {HeaderBar} from './../components/HeaderBar.js';
 import {PlayerView} from './../components/PlayerView.js';
+import Spotify from 'rn-spotify-sdk/src/Spotify';
 
 class HomeScreen extends Component{
-
+    constructor(props){
+        super(props)
+        
+        
+    }
   render() {
     return (
       <View style = {styles.container}>
@@ -17,16 +22,13 @@ class HomeScreen extends Component{
             title = "Music"
           />
 
-            <PlayerView
-                title = 'Starboy'
-                artist = 'The Weeknd'
-            />
-            <View style={{ flex: 1, alignItems: 'stretch', justifyContent: 'center', paddingHorizontal: 50 }}>
+            <PlayerView/>
+            {/* <View style={{ flex: 1, alignItems: 'stretch', justifyContent: 'center', paddingHorizontal: 50 }}>
                 <Slider
                     thumbTintColor='darkslateblue'
                 />
-            </View>
-              <View style = {styles.playerOptionsContainer}>
+            </View> */}
+              {/* <View style = {styles.playerOptionsContainer}>
                   <TouchableOpacity>
                       <Icon
                           name='backward'
@@ -52,9 +54,9 @@ class HomeScreen extends Component{
                           color = 'gray'
                           style = {styles.iconPlayer}
                       />
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
 
-              </View>
+              {/* </View> */}
 
               <View style = {styles.container}>
                   <Text style = {styles.textStyleRoomKey}>

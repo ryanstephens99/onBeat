@@ -16,39 +16,42 @@ import SongV2 from './v2/models/Song'
 const schemas = [
   {
     schema: [
-      Token,
-      SongV1,
-      Album,
-      Artist,
-      Library,
-      Playlist,
-      SavedSong,
-      Contributor,
-      Image
+      Token.schema,
+      SongV1.schema,
+      Album.schema,
+      Artist.schema,
+      Library.schema,
+      Playlist.schema,
+      SavedSong.schema,
+      Contributor.schema,
+      Image.schema
     ],
     schemaVersion: 1,
   },
   {
     schema: [
-      Token,
-      SongV2,
-      Album,
-      Artist,
-      Library,
-      Playlist,
-      SavedSong,
-      Contributor,
-      Image
+      Token.schema,
+      SongV2.schema,
+      Album.schema,
+      Artist.schema,
+      Library.schema,
+      Playlist.schema,
+      SavedSong.schema,
+      Contributor.schema,
+      Image.schema
     ],
     schemaVersion: 2,
   },
 ]
 
 console.log(Realm.defaultPath);
+console.log("WASUHHHHHH");
+
 
 // If Realm.schemaVersion() returned -1, it means this is a new Realm file so no migration is needed.
 let nextSchemaVersion = Realm.schemaVersion(Realm.defaultPath);
 if (nextSchemaVersion !== -1) {
+
   while (nextSchemaVersion < schemas[schemas.length-1].schemaVersion) {
     let schemaVersion = schemas[schemas.findIndex(x => x.schemaVersion === nextSchemaVersion)]
     const migratedRealm = new Realm(schemaVersion);
@@ -59,10 +62,9 @@ if (nextSchemaVersion !== -1) {
 
 const realm = new Realm(schemas[schemas.length-1])
 
-//
 // realm.write(() => {
-//   // let revibeToken = realm.objects('Token').filtered('platform = "Revibe"')["0"]
-//   // if(revibeToken) realm.delete(revibeToken)
+  // let OnBeatToken = realm.objects('Token').filtered('platform = "OnBeat"')["0"]
+  // if(OnBeatToken) realm.delete(OnBeatToken)
 //   realm.deleteAll();
 // });
 

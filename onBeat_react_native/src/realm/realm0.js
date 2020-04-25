@@ -36,8 +36,8 @@ const realm = new Realm(schemas[schemas.length-1])
 
 
 // realm.write(() => {
-//   let revibeToken = realm.objects('Token').filtered('platform = "Revibe"')["0"]
-//   if(revibeToken) realm.delete(revibeToken)
+//   let OnBeatToken = realm.objects('Token').filtered('platform = "OnBeat"')["0"]
+//   if(OnBeatToken) realm.delete(OnBeatToken)
 //   // realm.deleteAll();
 // });
 

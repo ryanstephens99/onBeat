@@ -7,6 +7,11 @@ import realm from './../realm/realm'
 
 export default class OnBeatAPI extends BasePlatformAPI {
 
+    constructor() {
+        super()
+        this.name = "OnBeat";
+    }
+
     async _handleErrors(response) {
         var errors = {}
         if (response.status === 400) {
@@ -83,7 +88,6 @@ export default class OnBeatAPI extends BasePlatformAPI {
                 break
             }
             catch (error) {
-                // console.log(error);
                 response = error.response
                 response.data = await this._handleErrors(error.response)
                 numRequestsSent += 1
@@ -104,17 +108,15 @@ export default class OnBeatAPI extends BasePlatformAPI {
 
     async register(username, email, password) {
         /**
-        * Summary: Register new Revibe account.
+        * Summary: Register new OnBeat account.
         *
         * @param {string}   username          username for new account
         * @param {string}   password          password for new account
-        * @param {string}   firstName         first name for new account
-        * @param {string}   lastName          last name for new account
         * @param {Object}   profile           profile object
         * @param {string}   profile.email     email in profile object
         * @param {string}   [profile.image]   image in profile (optional)
         *
-        * @return {Object} Revibe user object, access token, and refresh token
+        * @return {Object} OnBeat user object, access token, and refresh token
         */
 
         var data = {
@@ -124,48 +126,49 @@ export default class OnBeatAPI extends BasePlatformAPI {
             password2: password,
         }
         var response = await this._request("account/rest-auth/registration/", "POST", data)
-        // console.log(response)
+        console.log(response)
         if (response.data.hasOwnProperty("key")) {
             var token = response.data.key
-            console.log(token);
             
             await this.saveToken(token)
+            console.log(await this.getToken());
+            
         }
-        console.log(await this.getToken());
         
         return response.data
     }
 
-    // async login(username, password) {
-    //     /**
-    //     * Summary: Login to Revibe account (required implementation).
-    //     *
-    //     * @see  BasePlatformAPI
-    //     *
-    //     * @param {string}   username    username associated with an account
-    //     * @param {string}   password    password associated with an account
-    //     *
-    //     * @return {Object} Revibe user object, access token, and refresh token
-    //     */
+    async login(username, email, password) {
+        /**
+        * Summary: Login to OnBeat account (required implementation).
+        *
+        * @see  BasePlatformAPI
+        *
+        * @param {string}   username    username associated with an account
+        * @param {string}   password    password associated with an account
+        *
+        * @return {Object} OnBeat user object, access token, and refresh token
+        */
 
-    //     var data = {
-    //         username: username,
-    //         password: password,
-    //     }
-    //     var response = await this._request("account/rest-auth/login/", "POST", data)
-    //     if (response.data.hasOwnProperty("key")) {
-    //         var token = response.data.key,
-    //         // save token to realm
-    //         this.saveToken(token)
-
-    //         return response.data.user
-    //     }
-    //     return response.data
-    // }
+        var data = {
+            username: username,
+            email: email,
+            password: password,
+        }
+        var response = await this._request("account/rest-auth/login/", "POST", data)
+        if (response.data.hasOwnProperty("key")) {
+            var token = response.data.key;
+            // save token to realm
+            this.saveToken(token);
+            console.log(response.data.user)
+            return response.data.user
+        }
+        return response.data
+    }
 
     async logout() {
         /**
-        * Summary: Logout of Revibe account (required implementation).
+        * Summary: Logout of OnBeat account (required implementation).
         *
         * @see  BasePlatformAPI
         *
@@ -174,8 +177,17 @@ export default class OnBeatAPI extends BasePlatformAPI {
         var token = await this.getToken()
         var data = { token: token.accessToken }
         await this._request("account/auth/logout/", "POST", data)
-        token.delete()
+        // token.delete()
         this.library.delete()
     }
 
+    async getProfile() {
+        /**
+        * Summary: Get user's profile.
+        *
+        * @return {Object} User and profile object
+        */
+
+        return await this._request("account/profile/", "GET", null, true)
+    }
 }

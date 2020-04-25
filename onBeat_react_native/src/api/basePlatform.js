@@ -28,8 +28,16 @@ export default class BasePlatformAPI {
   }
 
   async getToken(platform=this.name) {
+    var token = await AsyncStorage.getItem(platform + '_token')
+    
+    // try {
+    //   token = JSON.parse(token);
+    // } catch (error) {
+      
+    // }
+    return token
     //  return token object for platform
-    return await AsyncStorage.getItem('token')
+     
   }
 
   _generateExpiration(hoursAhead) {
@@ -41,7 +49,8 @@ export default class BasePlatformAPI {
 
   async saveToken(token) {
     // save token to realm
-    await AsyncStorage.setItem('token', token)
+    var tokenStr = JSON.stringify(token)
+    await AsyncStorage.setItem(this.name + '_token', tokenStr)
   }
 
 
@@ -143,26 +152,6 @@ export default class BasePlatformAPI {
   removeFromLibrary(id) {
     var library = realm.objects('Library').filtered(`platform = "${this.name}"`)["0"]
     library.removeSong(id)
-  }
-
-  filterData(type, text) {
-    var results = []
-    if(text) {
-      return this.library.filter(type, text)
-    }
-    else {
-      if(type === "Artists") {
-        return this.library.allArtists
-      }
-      else if(type === "Albums") {
-        return this.library.allAlbums
-      }
-      else {
-        return this.library.allSongs
-      }
-    }
-
-    return results
   }
 
   refreshLibrary(tracks) {

@@ -1,119 +1,42 @@
 import Spotify from 'rn-spotify-sdk';
+import realm from './../realm/realm';
 import axios from "axios"
 import { uniqBy } from 'lodash'
+import SavedSong from './../realm/v1/models/SavedSong'
+
 import DefaultPreference from 'react-native-default-preference';
 import BasePlatformAPI from './basePlatform'
 
+import SpotifyAdapter from './spotifyDataAdapter.js';
 
-const IP = '127.0.0.1:8000';
+
 export default class SpotifyAPI extends BasePlatformAPI {
 
   constructor() {
     super()
     this.platformType = "private";
     this.name = "Spotify";
+    this.spotifyAdapter = new SpotifyAdapter();
   }
 
   _displayError(functionName, message) {
     console.log(`ERROR: ${functionName} failed with error message "${message}"`)
   }
 
-  _parseContributors(contributors, itemId) {
-    // need to account for simplified and full objects
-    formattedContributors = []
-    for(var x=0; x<contributors.length; x++) {
-      let contributor = {
-        id: contributors[x].id + itemId,
-        type: "Artist",
-        artist: this._parseArtist(contributors[x])
-      }
-      formattedContributors.push(contributor)
-    }
-    return formattedContributors
-  }
-
-  _parseSong(song) {
-    // need to account for simplified and full objects
-    var formattedSong = {
-      platform: "Spotify",
-      name: song['name'],
-      id: song['id'],
-      uri: song['uri'],
-      duration: parseFloat(song['duration_ms']/1000),
-      contributors: this._parseContributors(song['artists'], song['id']),
-    }
-    if(song['album']) {
-      formattedSong.album = this._parseAlbum(song['album'])
-    }
-    return formattedSong
-  }
-
-  _parseAlbum(album) {
-    // need to account for simplified and full objects
-    var typeKey = album["album_group"] ? "album_group" : "album_type"
-    var formattedAlbum = {
-      platform: "Spotify",
-      name: album['name'],
-      id: album['id'],
-      uri: album['uri'],
-      type: album[typeKey],
-      uploaded_date: new Date(album['release_date']),
-      contributors: this._parseContributors(album['artists'], album['id']),
-      images: this._parseImages(album['images'])
-    }
-    return formattedAlbum
-  }
-
-  _parseArtist(artist) {
-    // need to account for simplified and full objects
-    var formattedArtist = {
-      platform: "Spotify",
-      name: artist['name'].replace(/"/g, "'"),
-      id: artist['id'],
-      uri: artist['uri'],
-      images: []
-    }
-    if(artist['images']) {
-      formattedArtist.images = this._parseImages(artist['images'])
-    }
-    return formattedArtist
-  }
-
-  _parsePlaylist(playlist) {
-    // need to account for simplified and full objects
-    var formattedPlaylist = {
-      name: playlist['name'].replace(/"/g, "'"),
-      id: playlist['id'],
-      images: []  // need to get these
-    }
-    return formattedPlaylist
-  }
-
-  _parseImages(images) {
-    formattedImages = []
-    for(var x=0; x<images.length; x++) {
-      let image = {
-        height: images[x].height,
-        width: images[x].width,
-        url: images[x].url,
-      }
-      formattedImages.push(image)
-    }
-    return formattedImages
-  }
-
-
+  
   async initialize() {
     if(!Spotify.isInitialized()) {
+      // console.log(await this);
+      
       var options = {
         "clientID":"aeeb408283b34e29922a7522bb12033b",
         "redirectURL":"onbeat://callback",
         "scopes":[ "user-read-private", "playlist-read", "playlist-read-private",'user-library-read','user-library-modify','user-top-read',"streaming"],
-        "tokenSwapURL": IP+'account/spotify-authentication/',
-        "tokenRefreshURL": IP+'account/spotify-refresh/',
+        "tokenSwapURL": 'http:/127.0.0.1:3380/account/spotify-authentication/',
+        "tokenRefreshURL": 'http:/127.0.0.1:3380/account/spotify-refresh/',
         "tokenRefreshEarliness": 300,
         "sessionUserDefaultsKey": "OnBeatSpotifySession"+await DefaultPreference.get('user_id'),
-        "onBeatToken": this.getToken("OnBeat").accessToken, //pull OnBeat accessToken from realm
+        "revibeToken": await this.getToken("OnBeat"), //pull OnBeat accessToken from realm
         "audioSessionCategory": "AVAudioSessionCategoryPlayback"
       };
       try {
@@ -211,10 +134,12 @@ export default class SpotifyAPI extends BasePlatformAPI {
 
 
 
+
+
   ////////////////////////////////////////////////////////////////
   //////////////// BasePlatformAPI REQUIRED METHODS //////////////
   ////////////////////////////////////////////////////////////////
-
+  
   async login() {
     /**
     * Summary: Login to Spotify account (required implementation).
@@ -231,7 +156,13 @@ export default class SpotifyAPI extends BasePlatformAPI {
         expiration: session.expireTime ? session.expireTime : this._generateExpiration(1),
         platform: "Spotify"
       }
-      this.saveToken(token)
+      await this.saveToken(token)
+      realm.write(() => {
+        if (!realm.objects('Library').filtered(`platform = "Spotify"`).length) {
+          console.log("NEEE");
+          realm.create('Library', { platform: "Spotify" });
+        }
+      })
     }
 
   }
@@ -249,7 +180,7 @@ export default class SpotifyAPI extends BasePlatformAPI {
       await this._execute(Spotify.renewSession);
     }
     else {
-      // need to add a way to update revibe access token or our
+      // need to add a way to update OnBeat access token or our
       // servers will kick back requests to refresh spotify token.
       var session = {
         accessToken: token.accessToken,
@@ -264,7 +195,7 @@ export default class SpotifyAPI extends BasePlatformAPI {
           'user-library-modify',
           'user-top-read'
         ],
-        tokenRefreshURL: IP+'account/spotify-refresh/?authToken='+this.getToken("OnBeat").accessToken,
+        tokenRefreshURL: 'http:/127.0.0.1:3380/account/spotify-refresh/?authToken='+this.getToken("OnBeat").accessToken,
       }
       await this._execute(Spotify.loginWithSession, [session])
     }
@@ -294,7 +225,6 @@ export default class SpotifyAPI extends BasePlatformAPI {
 
     await this._execute(Spotify.logout)
     var token = this.getToken()
-    token.delete()
     this.library.delete()
   }
 
@@ -309,6 +239,47 @@ export default class SpotifyAPI extends BasePlatformAPI {
   }
 
 
+  _validateSong(song) {
+    // structure song and all nested objects to put in realm format
+    if (!song.dateSaved) {
+      song.dateSaved = new Date().toLocaleString()
+    }
+    if (!Array.isArray(song.album.images)) {
+      song.album.images = Object.keys(song.album.images).map(x => song.album.images[x])
+    }
+    if (!Array.isArray(song.album.contributors)) {
+      song.album.contributors = Object.keys(song.album.contributors).map(x => song.album.contributors[x])
+    }
+    if (!Array.isArray(song.contributors)) {
+      song.contributors = Object.keys(song.contributors).map(x => song.contributors[x])
+    }
+    for (var y = 0; y < song.album.contributors.length; y++) {
+      const index = y
+      if (!Array.isArray(song.album.contributors[index].artist.images)) {
+        song.album.contributors[index].artist.images = Object.keys(song.album.contributors[index].artist.images).map(x => song.album.contributors[index].artist.images[x])
+      }
+    }
+    for (var y = 0; y < song.contributors.length; y++) {
+      const index = y
+      if (!Array.isArray(song.contributors[index].artist.images)) {
+        song.contributors[index].artist.images = Object.keys(song.contributors[index].artist.images).map(x => song.contributors[index].artist.images[x])
+      }
+    }
+    return song
+  }
+
+  batchAddSongs(songs) {
+    
+    realm.write(() => {
+      for (var x = 0; x < songs.length; x++) {
+        var savedSongs = new SavedSong()
+        var newSavedSong = realm.create('SavedSong', songs[x], true);
+        this.library.songs.push(newSavedSong)
+      }
+    })
+  }
+
+
   async fetchLibrarySongs() {
     /**
     * Summary: Fetch all songs saved to library (required implementation).
@@ -317,15 +288,21 @@ export default class SpotifyAPI extends BasePlatformAPI {
     *
     * @return {Object} List containing song objects
     */
-    var songs = await this._execute(Spotify.getMyTracks, [], true, true)
+    var songs = await this._execute(Spotify.getMyTracks, [], true, true, 50, 50)
     for(var x=0; x<songs.length; x++) {
       var dateSaved = songs[x].added_at
-      songs[x] = this._parseSong(songs[x].track)
+      songs[x] = this.spotifyAdapter._parseSong(songs[x].track)
       songs[x].dateSaved = dateSaved
     }
 
     songs = await this._fetchArtistImages(songs)
-    this.library.batchAddSongs(songs)
+
+    songs = songs.map(song => ({ song: this._validateSong(song), dateSaved: song.dateSaved }))
+    this.batchAddSongs(songs)
+    
+    
+    // console.log("BRUH", this.library.allSongs);
+    // this.library.batchAddSongs(songs)
     
     // const library = this.library
     // for(var x=0; x<songs.length; x++) {
@@ -346,7 +323,7 @@ export default class SpotifyAPI extends BasePlatformAPI {
 
     var playlists = await this._execute(Spotify.getMyPlaylists, [], true, true, 50)
     for(var x=0; x<songs.length; x++) {
-      playlists[x] = this._parsePlaylist(playlists[x])
+      playlists[x] = this.spotifyAdapter._parsePlaylist(playlists[x])
     }
     return playlists
   }
@@ -364,7 +341,7 @@ export default class SpotifyAPI extends BasePlatformAPI {
 
     var songs = await this._execute(Spotify.getPlaylistTracks, [id], true, true, 50)
     for(var x=0; x<songs.length; x++) {
-      songs[x] = this._parseSong(songs[x])
+      songs[x] = this.spotifyAdapter._parseSong(songs[x])
     }
     songs = await this._fetchArtistImages(songs)
     return songs
@@ -383,7 +360,7 @@ export default class SpotifyAPI extends BasePlatformAPI {
 
     var albums = await this._execute(Spotify.getArtistAlbums, [id], true, true, 50)
     for(var x=0; x<albums.length; x++) {
-      albums[x] = this._parseAlbum(albums[x])
+      albums[x] = this.spotifyAdapter._parseAlbum(albums[x])
     }
     return albums
   }
@@ -402,7 +379,7 @@ export default class SpotifyAPI extends BasePlatformAPI {
     var songs = await this._execute(Spotify.getArtistTopTracks, [id, "from_token"], true)
     songs = songs.tracks
     for(var x=0; x<songs.length; x++) {
-      songs[x] = this._parseSong(songs[x])
+      songs[x] = this.spotifyAdapter._parseSong(songs[x])
     }
     return songs
   }
@@ -420,7 +397,7 @@ export default class SpotifyAPI extends BasePlatformAPI {
 
     var songs = await this._execute(Spotify.getAlbumTracks, [id], true, true, 50)
     for(var x=0; x<songs.length; x++) {
-      songs[x] = this._parseSong(songs[x])
+      songs[x] = this.spotifyAdapter._parseSong(songs[x])
     }
     return songs
   }
@@ -437,7 +414,7 @@ export default class SpotifyAPI extends BasePlatformAPI {
 
     var albums = await this._execute(Spotify.getNewReleases, [{limit:35}], true)
     for(var x=0; x<albums.length; x++) {
-      albums[x] = this._parseAlbum(albums[x])
+      albums[x] = this.spotifyAdapter._parseAlbum(albums[x])
     }
     return albums
   }
@@ -453,7 +430,7 @@ export default class SpotifyAPI extends BasePlatformAPI {
     * @return {Object} List containing song objects
     */
     var response = await this._execute(Spotify.getArtist, [id], true)
-    return this._parseArtist(response)
+    return this.spotifyAdapter._parseArtist(response)
   }
 
   async fetchArtists(ids) {
@@ -470,7 +447,7 @@ export default class SpotifyAPI extends BasePlatformAPI {
     response = response.artists
     var artists = []
     for(var x=0; x<response.length; x++) {
-      artists.push(this._parseArtist(response[x]))
+      artists.push(this.spotifyAdapter._parseArtist(response[x]))
     }
     return artists
   }
@@ -488,7 +465,7 @@ export default class SpotifyAPI extends BasePlatformAPI {
     * @return {Object} List containing song objects
     */
     var response = await this._execute(Spotify.getAlbum, [id], true)
-    return this._parseAlbum(response)
+    return this.spotifyAdapter._parseAlbum(response)
   }
 
   async fetchSong(id) {
@@ -502,7 +479,7 @@ export default class SpotifyAPI extends BasePlatformAPI {
     * @return {Object} List containing song objects
     */
     var response = await this._execute(Spotify.getTrack, [id], true)
-    return this._parseSong(response)
+    return this.spotifyAdapter._parseSong(response)
   }
 
   async search(query) {
@@ -521,17 +498,17 @@ export default class SpotifyAPI extends BasePlatformAPI {
     if(search) {
       if(search.tracks) {
         for(var x=0; x<search.tracks.items.length; x++) {
-          results.songs.push(this._parseSong(search.tracks.items[x]));
+          results.songs.push(this.spotifyAdapter._parseSong(search.tracks.items[x]));
         }
       }
       if(search.artists) {
         for(var x=0; x<search.artists.items.length; x++) {
-          results.artists.push(this._parseArtist(search.artists.items[x]));
+          results.artists.push(this.spotifyAdapter._parseArtist(search.artists.items[x]));
         }
       }
       if(search.albums) {
         for(var x=0; x<search.albums.items.length; x++) {
-          results.albums.push(this._parseAlbum(search.albums.items[x]));
+          results.albums.push(this.spotifyAdapter._parseAlbum(search.albums.items[x]));
         }
       }
     }
@@ -585,7 +562,7 @@ export default class SpotifyAPI extends BasePlatformAPI {
 
   async addSongToLibrary(song) {
     /**
-    * Summary: Add song to Revibe library.
+    * Summary: Add song to OnBeat library.
     *
     * @see  BasePlatformAPI
     *
@@ -608,7 +585,7 @@ export default class SpotifyAPI extends BasePlatformAPI {
 
   async removeSongFromLibrary(song) {
     /**
-    * Summary: Remove song from Revibe library.
+    * Summary: Remove song from OnBeat library.
     *
     * @see  BasePlatformAPI
     *
@@ -623,7 +600,7 @@ export default class SpotifyAPI extends BasePlatformAPI {
 
   async addAlbumToLibrary(album) {
     /**
-    * Summary: Add all songs from album to Revibe library. (Still need to implement)
+    * Summary: Add all songs from album to OnBeat library. (Still need to implement)
     *
     * @param {Object}   album    album object
     */
@@ -632,7 +609,7 @@ export default class SpotifyAPI extends BasePlatformAPI {
 
   async removeAlbumFromLibrary(album) {
     /**
-    * Summary: Remove all songs from album to Revibe library. (Still need to implement)
+    * Summary: Remove all songs from album to OnBeat library. (Still need to implement)
     *
     * @param {Object}   album    album object
     */
@@ -644,7 +621,7 @@ export default class SpotifyAPI extends BasePlatformAPI {
 
   async play(song) {
     /**
-    * Summary: play revibe song by uri (required implementation).
+    * Summary: play OnBeat song by uri (required implementation).
     *
     * @see  BasePlatformAPI
     *

@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   },
   buttonStyle:{
     margin: 20,
-    backgroundColor: 'darkslateblue',
+    backgroundColor: '#778FA8',
     width : deviceWidth - 30
     
   },
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     width: deviceWidth,
-
+    backgroundColor: backgroundColorBase
   },
   imageStyle:{
     justifyContent: 'center',
@@ -108,6 +108,9 @@ const styles = StyleSheet.create({
     marginLeft : 15,
     width: 50,
     height: 50,
+  },
+  ScrollView:{
+    backgroundColor: backgroundColorBase,
   },
   textStyleHeader:{
     fontWeight: 'bold',
